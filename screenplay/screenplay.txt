@@ -1,5 +1,5 @@
 ----------------------
--- MOVEMENT SECTION --
+--- INTRODUCTION -----
 ----------------------
 
 The rover sits in the middle of stage, switched off.
@@ -19,6 +19,10 @@ The rover bursts into life with a power-on sound
   Rover
   Good morning!
   
+----------------------
+-- MOVEMENT SECTION --
+----------------------
+
   Announcer
   The rover is able to be controlled manually...
   
@@ -69,23 +73,26 @@ The announcer bends down and picks up the rover, turning it upside-down.
   Announcer
   Which includes the Curie IMU, which is comprised
   of a gyroscope and accelerometer. We have built
-  a LED cube that responds not only to shock, but to
-  it's position in space.
+  a LED cube that responds not only it's position
+  in space... but also to shock.
+
+  Rover
+  That may just leave a mark, you know
   
 The announcer puts the rover back on the ground.
 
   Announcer
   Now be a good rover and go do some science
   
-  Rover
-  Abolutely! As an advanced science rover I'm
-  hooked into all the latest stuff!
-  
-Other Genuino 101's around the stage start to beep and flash. The rover turns toword the first sensor
-
 --------------------
 -- SENSOR SECTION --
 --------------------
+
+  Rover
+  As an advanced science rover I'm hooked
+  into all the latest stuff!
+  
+Other Genuino 101's around the stage start to beep and flash. The rover turns toword the first sensor
 
   Rover
   Hello! What kind of sensor are you? (pause)
@@ -97,6 +104,15 @@ Other Genuino 101's around the stage start to beep and flash. The rover turns to
   (pause)
   Wait... sorry, I think that's some bad
   soldering. Displaying weather data on the
-  console.
+  app.
   
-The sensor information is displayed on the app.
+The sensor information is displayed on the projector
+
+--------------------
+----- CLOSING ------
+--------------------
+
+  Announcer
+  Thank you all for your attention, on behalf
+  of the tema it was a pleasure working at 
+  Intel for the summer. 
