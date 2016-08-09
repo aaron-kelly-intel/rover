@@ -49,8 +49,8 @@ using BLE (Bluetooth Low Energy).
 
 	<p id="info">Initializing...</p>
 
-	<button class="yellow wide" onclick="app.connect()">CONNECT-Gen1</button>
-	<button class="yellow wide" onclick="app.connect()">CONNECT-Gen2</button>
+	<button class="yellow wide" onclick="app.connectRover()">CONNECT-Rover</button>
+	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT-Sensor</button>
 	<br />
 		
 	<h2> Auto-play </h2>
@@ -127,9 +127,6 @@ using BLE (Bluetooth Low Energy).
 	// Connected device.
 	app.device = null;
 
-	// 
-
-
 	// send data over a BLE connection to a device
 	app.sendCommand = function(number)
 	{
@@ -148,7 +145,7 @@ using BLE (Bluetooth Low Energy).
 		app.showMessage('Touch the connect button to begin.');
 	};
 
-	app.connect = function()
+	app.connectRover = function()
 	{
 		evothings.arduinoble.close();
 		app.showMessage('Connecting...');
@@ -167,6 +164,25 @@ using BLE (Bluetooth Low Energy).
 			});
 	};
 
+	app.connectSensorBoard = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			 // Advertised name of BLE device.
+			'GENUINO 101-BFB0', // 2nd genuino
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected!');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
+	
 	document.addEventListener(
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
