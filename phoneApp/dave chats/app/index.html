@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<!--
+This is an app that demonstrates how to control an Arduino101 board
+using BLE (Bluetooth Low Energy).
+-->
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Dave chats</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	window.onerror = function(msg, url, line)
+	{
+		console.log(msg + ": " + url + ":" + line);
+	};
+	</script>
+ 
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/arduinoble/arduinoble.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>Dave chats</h1>
+
+	<p id="info">Initializing...</p>
+
+	<button class="yellow wide" onclick="app.connect()">CONNECT-Gen1</button>
+	<button class="yellow wide" onclick="app.connect()">CONNECT-Gen2</button>
+	<br />
+		
+	<h2> Auto-play </h2>
+	
+	<button class="blue wide" onclick="app.sendCommand(0)">Play voice 0</button>
+	<button class="blue wide" onclick="app.sendCommand(1)">Play voice 1</button>
+	<button class="blue wide" onclick="app.timelapse()">timelapse</button>
+	<button class="blue wide" onclick="app.timelapse()">twinkle-twinkle</button>
+	<script>
+	// Application object.
+	var app = {}
+
+	// tune 0
+	app.timelapse = function() {
+		setTimeout(function(){ app.sendCommand(2); }, 0);
+		setTimeout(function(){ app.sendCommand(2); }, 5000);
+		setTimeout(function(){ app.sendCommand(3); }, 10000);
+		setTimeout(function(){ app.sendCommand(3); }, 20000);
+	};
+	
+	// tune 1
+	app.autoPlayTune1 = function() {
+		var currentTime = 0;
+		var cutoff = 0;
+		var DELAY_TIME = 1000;
+		var drumBeatArray = [1, 1, 7, 1, 0];
+		
+		for (i = 0; i < drumBeatArray.length; i++) {
+			console.log("playing beat at " + currentTime);
+			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
+			currentTime += DELAY_TIME;
+		}
+	};
+	
+	// tune 2
+	app.autoPlayTune2 = function() {
+		var currentTime = 0;
+		var cutoff = 0;
+		var DELAY_TIME = 20;
+		var drumBeatArray = [6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 0];
+		
+		for (i = 0; i < drumBeatArray.length; i++) {
+			console.log("playing beat at " + currentTime);
+			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
+			currentTime += DELAY_TIME;
+		}
+	};
+	
+	function playArray(i, array, currentTime, cutoff, delay) {
+		console.log("tone will play for " + (currentTime + delay - cutoff - 2));
+		setTimeout(function(){ app.sendCommand(array[i]); }, (currentTime + delay - cutoff - 2));
+		
+		// also ask the Genuino to perform a noTone() at the end
+		console.log("sending noTone() at " + (currentTime + delay - cutoff - 1));
+		setTimeout(function(){ app.sendCommand(0); }, (currentTime + delay - cutoff - 1));
+		
+		// twinkle twinkle
+	app.autoPlayTune = function() {
+		var currentTime = 0;
+		var cutoff = 0;
+		var DELAY_TIME = 20;
+		var drumBeatArray = [1, 1, 5, 5, 6, 6, 5, 4, 4, 3, 3, 2, 2, 1, 5, 5, 4, 4, 3, 3, 2, 5, 5, 4, 4, 3, 3, 2,1, 1, 5, 5, 6, 6, 5, 4, 4, 3, 3, 2, 2, 1];
+		
+		for (i = 0; i < drumBeatArray.length; i++) {
+			console.log("playing beat at " + currentTime);
+			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
+			currentTime += DELAY_TIME;
+		}
+	};
+		
+	
+	};
+
+	// Connected device.
+	app.device = null;
+
+	// 
+
+
+	// send data over a BLE connection to a device
+	app.sendCommand = function(number)
+	{
+		console.log(number);
+		app.device && app.device.writeDataArray(new Uint8Array([number]), '893fe933-4d22-4ebd-986a-08492c3144b4');
+	};
+	
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+	
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Touch the connect button to begin.');
+	};
+
+	app.connect = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			 // Advertised name of BLE device.
+			'GENUINO 101-C55F', // 2nd genuino
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected!');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
+
+	document.addEventListener(
+		'deviceready',
+		function() { evothings.scriptsLoaded(app.onDeviceReady) },
+		false);
+	
+	
+	
+	document.getElementById("c").addEventListener("touchstart", function() {app.sendCommand(1)}, false);
+	document.getElementById("c").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("d").addEventListener("touchstart", function() {app.sendCommand(2)}, false);
+	document.getElementById("d").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("e").addEventListener("touchstart", function() {app.sendCommand(3)}, false);
+	document.getElementById("e").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("f").addEventListener("touchstart", function() {app.sendCommand(4)}, false);
+	document.getElementById("f").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("g").addEventListener("touchstart", function() {app.sendCommand(5)}, false);
+	document.getElementById("g").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("a").addEventListener("touchstart", function() {app.sendCommand(6)}, false);
+	document.getElementById("a").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("b").addEventListener("touchstart", function() {app.sendCommand(7)}, false);
+	document.getElementById("b").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	
+	document.getElementById("c2").addEventListener("touchstart", function() {app.sendCommand(8)}, false);
+	document.getElementById("c2").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<!--
+This is an app that demonstrates how to control an Arduino101 board
+using BLE (Bluetooth Low Energy).
+-->
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>BLE Piano</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	window.onerror = function(msg, url, line)
+	{
+		console.log(msg + ": " + url + ":" + line);
+	};
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/arduinoble/arduinoble.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>BLE Piano</h1>
+
+	<p id="info">Initializing...</p>
+
+	<button class="yellow wide" onclick="app.connect()">CONNECT</button>
+
+	<br />
+	<!--
+
+	<button class="green wide big" onclick="app.sendCommand(0)">SEND 0</button>
+
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(1)">SEND 1</button>
+
+	<br />
+	
+	
+	<button class="green wide big" onclick="app.sendCommand(2)">SEND 2</button>
+
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(3)">SEND 3</button>
+
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(4)">SEND 4</button>
+
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(5)">SEND 5</button>
+
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(6)">SEND 6</button>
+	
+	<br />
+	
+	<button class="green wide big" onclick="app.sendCommand(7)">SEND 7</button>
+
+	<br />
+	
+	-->
+	
+	<img src="c.png" width="12.5%" onclick="app.sendCommand(0)"><img src="d.png" width="12.5%" onclick="app.sendCommand(1)"><img src="e.png" width="12.5%" onclick="app.sendCommand(2)"><img src="f.png" width="12.5%" onclick="app.sendCommand(3)"><img src="g.png" width="12.5%" onclick="app.sendCommand(4)"><img src="a.png" width="12.5%" onclick="app.sendCommand(5)"><img src="b.png" width="12.5%" onclick="app.sendCommand(6)"><img src="c.png" width="12.5%" onclick="app.sendCommand(7)">
+	
+	<script>
+	// Application object.
+	var app = {}
+
+	// Connected device.
+	app.device = null;
+
+	// send data over a BLE connection to a device
+	app.sendCommand = function(number)
+	{
+		console.log(number);
+		app.device && app.device.writeDataArray(new Uint8Array([number]), '19b10001-e8f2-537e-4f6c-d104768a1214');
+	};
+	
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+
+	app.connect = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			'GENUINO 101-C55F', // Advertised name of BLE device.
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected! Touch buttons to turn LED on/off.');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
+
+	document.addEventListener(
+		'deviceready',
+		function() { evothings.scriptsLoaded(app.onDeviceReady) },
+		false);
+	</script>
+
+</body>
+
+</html>
