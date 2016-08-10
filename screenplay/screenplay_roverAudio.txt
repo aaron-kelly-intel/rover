@@ -1,0 +1,7 @@
+naming suggestion for the different rover speaking parts
+
+T00.. Good mornings, introductions
+T01.. Movement
+T02.. IMU
+T03.. Sensors
+T04.. Closing
