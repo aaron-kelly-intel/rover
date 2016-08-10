@@ -1,0 +1,102 @@
+----------------------
+-- MOVEMENT SECTION --
+----------------------
+
+The rover sits in the middle of stage, switched off.
+  
+  Announcer
+  We'd like to present to you our Rover,
+  the culmination of our learning and time
+  spent at Intel over the past 10 weeks.
+  The rover comes equipped with a number of
+  sensors built-in, thanks to the Intel Curie
+  chip.
+  To control and communicate with the rover,
+  we have also built an app. Let's switch it on.
+  
+The rover bursts into life with a power-on sound
+
+  Rover
+  Good morning!
+  
+  Announcer
+  The rover is able to be controlled manually...
+  
+The announcer presses the directional keys on the app.
+
+  Rover
+  (taking off suddenly)
+  ... woah!
+  
+  Announcer
+  Our app comes with a directional pad
+  for movement, with constant feedback from
+  the rover on the terrain conditions.
+  
+  Rover
+  You know, I really would prefer to do the 
+  driving... stastistically, machines are a lot safer
+  
+  Announcer
+  (pressing button)
+  We can also have the rover operate autonomously.
+  Ok, you're free to go.
+  
+The rover is released from manual control, and sits there doing nothing.
+
+  Announcer
+  You can go now.
+  
+  Rover
+  Stastistically, it's a lot safer to stay right here.
+
+-----------------
+-- IMU SECTION --
+-----------------
+  
+The announcer walks over to the rover, it's LED
+cube flashing casually.
+
+  Announcer
+  We tried to explore as many of the on-board features
+  as we could...
+  
+The announcer bends down and picks up the rover, turning it upside-down.
+
+  Rover
+  Woah, careful!
+  
+  Announcer
+  Which includes the Curie IMU, which is comprised
+  of a gyroscope and accelerometer. We have built
+  a LED cube that responds not only to shock, but to
+  it's position in space.
+  
+The announcer puts the rover back on the ground.
+
+  Announcer
+  Now be a good rover and go do some science
+  
+  Rover
+  Abolutely! As an advanced science rover I'm
+  hooked into all the latest stuff!
+  
+Other Genuino 101's around the stage start to beep and flash. The rover turns toword the first sensor
+
+--------------------
+-- SENSOR SECTION --
+--------------------
+
+  Rover
+  Hello! What kind of sensor are you? (pause)
+  Ahh! You've been collecting weather data! 
+  Let me download what you have...
+  According to the sensor, the current
+  temperature is 427 degrees celsius and 
+  5000 percent humidity.
+  (pause)
+  Wait... sorry, I think that's some bad
+  soldering. Displaying weather data on the
+  console.
+  
+The sensor information is displayed on the app.
