@@ -1,4 +1,10 @@
+<!--
+Rover html
+-->
+
+
 <!DOCTYPE html>
+
 <html>
 <!--
 This is an app that demonstrates how to control an Arduino101 board
@@ -10,7 +16,7 @@ using BLE (Bluetooth Low Energy).
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>BLE Piano</title>
+	<title>Rover</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -45,69 +51,59 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>BLE Piano</h1>
+	<h1>Rover Test</h1>
 
 	<p id="info">Initializing...</p>
 
 	<button class="yellow wide" onclick="app.connect()">CONNECT</button>
 
 	<br />
-	<!--
-
-	<button class="green wide big" onclick="app.sendCommand(0)">SEND 0</button>
-
-	<br />
 	
-	<button class="green wide big" onclick="app.sendCommand(1)">SEND 1</button>
-
-	<br />
-	
-	
-	<button class="green wide big" onclick="app.sendCommand(2)">SEND 2</button>
+	<TABLE>
+		<TR id="row1">
+			<TH>  								  <TD> <img src="images/U.png" id="U"/> <TD>
+		<TR id="row2">
+			<TH> <img src="images/L.png" id="L"/> <TD> <img src="images/M.png"/>		<TD> <img src="images/R.png" id="R"/>
+		<TR id="row3">
+			<TH>								  <TD> <img src="images/D.png" id="D"/> <TD>
+	</TABLE>
 
 	<br />
-	
-	<button class="green wide big" onclick="app.sendCommand(3)">SEND 3</button>
-
-	<br />
-	
-	<button class="green wide big" onclick="app.sendCommand(4)">SEND 4</button>
-
-	<br />
-	
-	<button class="green wide big" onclick="app.sendCommand(5)">SEND 5</button>
-
-	<br />
-	
-	<button class="green wide big" onclick="app.sendCommand(6)">SEND 6</button>
-	
-	<br />
-	
-	<button class="green wide big" onclick="app.sendCommand(7)">SEND 7</button>
-
-	<br />
-	
-	-->
-	
-	<img src="c.png" width="12.5%" onclick="app.sendCommand(0)"><img src="d.png" width="12.5%" onclick="app.sendCommand(1)"><img src="e.png" width="12.5%" onclick="app.sendCommand(2)"><img src="f.png" width="12.5%" onclick="app.sendCommand(3)"><img src="g.png" width="12.5%" onclick="app.sendCommand(4)"><img src="a.png" width="12.5%" onclick="app.sendCommand(5)"><img src="b.png" width="12.5%" onclick="app.sendCommand(6)"><img src="c.png" width="12.5%" onclick="app.sendCommand(7)">
 	
 	<script>
+
 	// Application object.
-	var app = {}
-
+	var app = {};
+	var info = 0;
 	// Connected device.
-	app.device = null;
-
+	app.device = null;	
+	
 	// send data over a BLE connection to a device
-	app.sendCommand = function(number)
+	app.sendCommand = function(number, state)
 	{
-		console.log(number);
-		app.device && app.device.writeDataArray(new Uint8Array([number]), '19b10001-e8f2-537e-4f6c-d104768a1214');
+		if (state)
+		{
+			info = number | info;
+		}
+		else
+		{
+			info = (~number) & info;
+		}
+		console.log(info);
+		app.device && app.device.writeDataArray(new Uint8Array([info]), 'de46a385-d410-4f00-8b8d-ec116984841c');
 	};
 	
+	
+
 	app.showMessage = function(info)
 	{
 		document.getElementById('info').innerHTML = info
+	};
+
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Touch the connect button to begin.');
 	};
 
 	app.connect = function()
@@ -116,7 +112,7 @@ using BLE (Bluetooth Low Energy).
 		app.showMessage('Connecting...');
 
 		evothings.arduinoble.connect(
-			'GENUINO 101-C55F', // Advertised name of BLE device.
+			'GENUINO 101-C575', // Advertised name of BLE device.
 			function(device)
 			{
 				app.device = device;
@@ -132,6 +128,15 @@ using BLE (Bluetooth Low Energy).
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
 		false);
+		
+	document.getElementById("U").addEventListener("touchstart", function() {app.sendCommand(1, 1)}, false);
+	document.getElementById("U").addEventListener("touchend", function() {app.sendCommand(1, 0)}, false);
+	document.getElementById("D").addEventListener("touchstart", function() {app.sendCommand(2, 1)}, false);
+	document.getElementById("D").addEventListener("touchend", function() {app.sendCommand(2, 0)}, false);
+	document.getElementById("L").addEventListener("touchstart", function() {app.sendCommand(4, 1)}, false);
+	document.getElementById("L").addEventListener("touchend", function() {app.sendCommand(4, 0)}, false);
+	document.getElementById("R").addEventListener("touchstart", function() {app.sendCommand(8, 1)}, false);
+	document.getElementById("R").addEventListener("touchend", function() {app.sendCommand(8, 0)}, false);
 	</script>
 
 </body>

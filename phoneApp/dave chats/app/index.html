@@ -55,75 +55,21 @@ using BLE (Bluetooth Low Energy).
 		
 	<h2> Auto-play </h2>
 	
-	<button class="blue wide" onclick="app.sendCommand(0)">Play voice 0</button>
-	<button class="blue wide" onclick="app.sendCommand(1)">Play voice 1</button>
-	<button class="blue wide" onclick="app.timelapse()">timelapse</button>
-	<button class="blue wide" onclick="app.timelapse()">twinkle-twinkle</button>
+	<button class="blue wide" onclick="app.sendCommand(0)">Introduction</button>
+	<button class="blue wide" onclick="app.sendCommand(1)">Movement</button>
+	<button class="blue wide" onclick="app.sendCommand(2)">IMU</button>
+	<button class="blue wide" onclick="app.sendCommand(3)">Sensors</button>
+	<button class="blue wide" onclick="app.sendCommand(4)">Closing</button>
+	
+	<button class="purple wide big" onclick="location.href='index2.html'">Click me</button>
 	<script>
 	// Application object.
 	var app = {}
 
-	// tune 0
-	app.timelapse = function() {
-		setTimeout(function(){ app.sendCommand(2); }, 0);
-		setTimeout(function(){ app.sendCommand(2); }, 5000);
-		setTimeout(function(){ app.sendCommand(3); }, 10000);
-		setTimeout(function(){ app.sendCommand(3); }, 20000);
-	};
 	
-	// tune 1
-	app.autoPlayTune1 = function() {
-		var currentTime = 0;
-		var cutoff = 0;
-		var DELAY_TIME = 1000;
-		var drumBeatArray = [1, 1, 7, 1, 0];
-		
-		for (i = 0; i < drumBeatArray.length; i++) {
-			console.log("playing beat at " + currentTime);
-			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
-			currentTime += DELAY_TIME;
-		}
-	};
 	
-	// tune 2
-	app.autoPlayTune2 = function() {
-		var currentTime = 0;
-		var cutoff = 0;
-		var DELAY_TIME = 20;
-		var drumBeatArray = [6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 6, 7, 0];
-		
-		for (i = 0; i < drumBeatArray.length; i++) {
-			console.log("playing beat at " + currentTime);
-			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
-			currentTime += DELAY_TIME;
-		}
-	};
-	
-	function playArray(i, array, currentTime, cutoff, delay) {
-		console.log("tone will play for " + (currentTime + delay - cutoff - 2));
-		setTimeout(function(){ app.sendCommand(array[i]); }, (currentTime + delay - cutoff - 2));
-		
-		// also ask the Genuino to perform a noTone() at the end
-		console.log("sending noTone() at " + (currentTime + delay - cutoff - 1));
-		setTimeout(function(){ app.sendCommand(0); }, (currentTime + delay - cutoff - 1));
-		
-		// twinkle twinkle
-	app.autoPlayTune = function() {
-		var currentTime = 0;
-		var cutoff = 0;
-		var DELAY_TIME = 20;
-		var drumBeatArray = [1, 1, 5, 5, 6, 6, 5, 4, 4, 3, 3, 2, 2, 1, 5, 5, 4, 4, 3, 3, 2, 5, 5, 4, 4, 3, 3, 2,1, 1, 5, 5, 6, 6, 5, 4, 4, 3, 3, 2, 2, 1];
-		
-		for (i = 0; i < drumBeatArray.length; i++) {
-			console.log("playing beat at " + currentTime);
-			playArray(i, drumBeatArray, currentTime, cutoff, DELAY_TIME);
-			currentTime += DELAY_TIME;
-		}
-	};
-		
-	
-	};
 
+	*/
 	// Connected device.
 	app.device = null;
 
@@ -152,7 +98,7 @@ using BLE (Bluetooth Low Energy).
 
 		evothings.arduinoble.connect(
 			 // Advertised name of BLE device.
-			'GENUINO 101-C55F', // 2nd genuino
+			'GENUINO 101-B986', // 1st genuino- Dave
 			function(device)
 			{
 				app.device = device;
@@ -171,16 +117,36 @@ using BLE (Bluetooth Low Energy).
 
 		evothings.arduinoble.connect(
 			 // Advertised name of BLE device.
-			'GENUINO 101-BFB0', // 2nd genuino
+			'GENUINO 101-C572', // 2nd genuino
 			function(device)
 			{
 				app.device = device;
 				app.showMessage('Connected!');
+				
+				// read only a single temperature reading
+				app.readTemp();
 			},
 			function(errorCode)
 			{
 				app.showMessage('Connect error: ' + errorCode + '.');
 			});
+	};
+	
+	app.readTemp = function()
+	{
+		app.device.readCharacteristic(
+		'19b10001-e8f2-537e-4f6c-d104768a1214',
+		function(data)
+		{
+			//console.log('BLE characteristic data: ' + evothings.ble.fromUtf8(data));
+			console.log('BLE characteristic data: ' + evothings.util.typedArrayToHexString(data));
+			var reading = evothings.util.typedArrayToHexString(data);
+			app.showMessage(parseInt('0x' + reading, 16));
+		},
+		function(errorCode)
+		{
+		 	console.log('BLE readCharacteristic error: ' + errorCode);
+		});
 	};
 	
 	document.addEventListener(
@@ -190,29 +156,22 @@ using BLE (Bluetooth Low Energy).
 	
 	
 	
-	document.getElementById("c").addEventListener("touchstart", function() {app.sendCommand(1)}, false);
-	document.getElementById("c").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	document.getElementById("Introduction").addEventListener("touchstart", function() {app.sendCommand(1)}, false);
+	document.getElementById("Introduction").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("d").addEventListener("touchstart", function() {app.sendCommand(2)}, false);
-	document.getElementById("d").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	document.getElementById("Movement").addEventListener("touchstart", function() {app.sendCommand(2)}, false);
+	document.getElementById("Movement").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("e").addEventListener("touchstart", function() {app.sendCommand(3)}, false);
-	document.getElementById("e").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	document.getElementById("IMU").addEventListener("touchstart", function() {app.sendCommand(3)}, false);
+	document.getElementById("IMU").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("f").addEventListener("touchstart", function() {app.sendCommand(4)}, false);
-	document.getElementById("f").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	document.getElementById("Sensors").addEventListener("touchstart", function() {app.sendCommand(4)}, false);
+	document.getElementById("Sensors").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("g").addEventListener("touchstart", function() {app.sendCommand(5)}, false);
-	document.getElementById("g").addEventListener("touchend", function() {app.sendCommand(0)}, false);
+	document.getElementById("Closing").addEventListener("touchstart", function() {app.sendCommand(5)}, false);
+	document.getElementById("Closing").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("a").addEventListener("touchstart", function() {app.sendCommand(6)}, false);
-	document.getElementById("a").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	
-	document.getElementById("b").addEventListener("touchstart", function() {app.sendCommand(7)}, false);
-	document.getElementById("b").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	document.getElementById("c2").addEventListener("touchstart", function() {app.sendCommand(8)}, false);
-	document.getElementById("c2").addEventListener("touchend", function() {app.sendCommand(0)}, false);
 	</script>
 
 </body>
