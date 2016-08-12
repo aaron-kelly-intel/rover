@@ -10,7 +10,7 @@ using BLE (Bluetooth Low Energy).
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Dave chats</title>
+	<title>Rover control panel</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -24,7 +24,7 @@ using BLE (Bluetooth Low Energy).
 		console.log(msg + ": " + url + ":" + line);
 	};
 	</script>
- 
+
 	<script src="cordova.js"></script>
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="libs/evothings/evothings.js"></script>
@@ -45,15 +45,16 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Dave chats</h1>
+	<h1>Rover control panel</h1>
 
 	<p id="info">Initializing...</p>
 
 	<button class="yellow wide" onclick="app.connectRover()">CONNECT-Rover</button>
 	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT-Sensor</button>
+	
 	<br />
 		
-	<h2> Auto-play </h2>
+	<h2>Speak</h2>
 	
 	<button class="blue wide" onclick="app.sendCommand(0)">Introduction</button>
 	<button class="blue wide" onclick="app.sendCommand(1)">Movement</button>
@@ -61,36 +62,13 @@ using BLE (Bluetooth Low Energy).
 	<button class="blue wide" onclick="app.sendCommand(3)">Sensors</button>
 	<button class="blue wide" onclick="app.sendCommand(4)">Closing</button>
 	
-	<button class="purple wide big" onclick="location.href='index2.html'">Click me</button>
+	<h2>Drive</h2>
+	<button class="purple wide" onclick="location.href='index2.html'">Rover drive</button>
+
 	<script>
 	// Application object.
-	var app = {}
-
+	var app = {};
 	
-	
-
-	*/
-	// Connected device.
-	app.device = null;
-
-	// send data over a BLE connection to a device
-	app.sendCommand = function(number)
-	{
-		console.log(number);
-		app.device && app.device.writeDataArray(new Uint8Array([number]), '893fe933-4d22-4ebd-986a-08492c3144b4');
-	};
-	
-	app.showMessage = function(info)
-	{
-		document.getElementById('info').innerHTML = info
-	};
-	
-	// Called when BLE and other native functions are available.
-	app.onDeviceReady = function()
-	{
-		app.showMessage('Touch the connect button to begin.');
-	};
-
 	app.connectRover = function()
 	{
 		evothings.arduinoble.close();
@@ -131,6 +109,33 @@ using BLE (Bluetooth Low Energy).
 				app.showMessage('Connect error: ' + errorCode + '.');
 			});
 	};
+
+	// Connected device.
+	app.device = null;
+
+	app.connect = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			'GENUINO 101-C55F', // Advertised name of BLE device.
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected! Touch buttons to turn LED on/off.');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
+
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Touch the connect button to begin.');
+	};
 	
 	app.readTemp = function()
 	{
@@ -149,29 +154,23 @@ using BLE (Bluetooth Low Energy).
 		});
 	};
 	
+	// send data over a BLE connection to a device
+	app.sendCommand = function(number)
+	{
+		console.log(number);
+		app.device && app.device.writeDataArray(new Uint8Array([number]), '893fe933-4d22-4ebd-986a-08492c3144b4');
+	};
+	
+	// display a message on the app screen
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+	
 	document.addEventListener(
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
 		false);
-	
-	
-	
-	document.getElementById("Introduction").addEventListener("touchstart", function() {app.sendCommand(1)}, false);
-	document.getElementById("Introduction").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	document.getElementById("Movement").addEventListener("touchstart", function() {app.sendCommand(2)}, false);
-	document.getElementById("Movement").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	document.getElementById("IMU").addEventListener("touchstart", function() {app.sendCommand(3)}, false);
-	document.getElementById("IMU").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	document.getElementById("Sensors").addEventListener("touchstart", function() {app.sendCommand(4)}, false);
-	document.getElementById("Sensors").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	document.getElementById("Closing").addEventListener("touchstart", function() {app.sendCommand(5)}, false);
-	document.getElementById("Closing").addEventListener("touchend", function() {app.sendCommand(0)}, false);
-	
-	
 	</script>
 
 </body>

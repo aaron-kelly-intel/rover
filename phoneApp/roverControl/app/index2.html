@@ -51,13 +51,11 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Rover Test</h1>
-
-	<p id="info">Initializing...</p>
-
-	<button class="yellow wide" onclick="app.connect()">CONNECT</button>
-
+	<h1>Rover drive</h1>
+	
 	<br />
+	
+	<p id="info">Initializing...</p>
 	
 	<TABLE>
 		<TR id="row1">
@@ -106,29 +104,11 @@ using BLE (Bluetooth Low Energy).
 		app.showMessage('Touch the connect button to begin.');
 	};
 
-	app.connect = function()
-	{
-		evothings.arduinoble.close();
-		app.showMessage('Connecting...');
-
-		evothings.arduinoble.connect(
-			'GENUINO 101-C575', // Advertised name of BLE device.
-			function(device)
-			{
-				app.device = device;
-				app.showMessage('Connected! Touch buttons to turn LED on/off.');
-			},
-			function(errorCode)
-			{
-				app.showMessage('Connect error: ' + errorCode + '.');
-			});
-	};
-
 	document.addEventListener(
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
 		false);
-		
+	
 	document.getElementById("U").addEventListener("touchstart", function() {app.sendCommand(1, 1)}, false);
 	document.getElementById("U").addEventListener("touchend", function() {app.sendCommand(1, 0)}, false);
 	document.getElementById("D").addEventListener("touchstart", function() {app.sendCommand(2, 1)}, false);
