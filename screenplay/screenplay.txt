@@ -48,16 +48,10 @@ The announcer presses the directional keys on the app.
   
   Announcer
   (pressing button)
-  We can also have the rover operate autonomously.
   Ok, you're free to go.
   
-The rover is released from manual control, and sits there doing nothing.
-
-  Announcer
-  You can go now.
-  
   Rover
-  I think I'd rather just stay right here.
+  Actually, I think I'd rather just stay right here.
 
 -----------------
 -- IMU SECTION --
