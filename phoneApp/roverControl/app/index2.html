@@ -4,7 +4,6 @@ Rover html
 
 
 <!DOCTYPE html>
-
 <html>
 <!--
 This is an app that demonstrates how to control an Arduino101 board
@@ -57,6 +56,8 @@ using BLE (Bluetooth Low Energy).
 	
 	<p id="info">Initializing...</p>
 	
+	<button class="yellow wide" onclick="app.connectMotor()">CONNECT-Motor</button>
+	
 	<TABLE>
 		<TR id="row1">
 			<TH>  								  <TD> <img src="images/U.png" id="U"/> <TD>
@@ -75,6 +76,26 @@ using BLE (Bluetooth Low Energy).
 	var info = 0;
 	// Connected device.
 	app.device = null;	
+	
+	
+	app.connectMotor = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			 // Advertised name of BLE device.
+			'GENUINO 101-C575', // 1st genuino- Dave
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected!');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
 	
 	// send data over a BLE connection to a device
 	app.sendCommand = function(number, state)

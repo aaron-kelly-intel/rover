@@ -49,7 +49,7 @@ using BLE (Bluetooth Low Energy).
 
 	<p id="info">Initializing...</p>
 
-	<button class="yellow wide" onclick="app.connectRover()">CONNECT-Rover</button>
+	<button class="yellow wide" onclick="app.connectBrain()">CONNECT-Brain</button>
 	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT-Sensor</button>
 	
 	<br />
@@ -69,7 +69,7 @@ using BLE (Bluetooth Low Energy).
 	// Application object.
 	var app = {};
 	
-	app.connectRover = function()
+	app.connectBrain = function()
 	{
 		evothings.arduinoble.close();
 		app.showMessage('Connecting...');
@@ -119,7 +119,7 @@ using BLE (Bluetooth Low Energy).
 		app.showMessage('Connecting...');
 
 		evothings.arduinoble.connect(
-			'GENUINO 101-C55F', // Advertised name of BLE device.
+			'GENUINO 101-C575', // Advertised name of BLE device.
 			function(device)
 			{
 				app.device = device;
