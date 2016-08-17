@@ -73,7 +73,8 @@ cube flashing casually.
 The announcer bends down and picks up the rover, turning it upside-down.
 
   Rover
-  Woah, careful!
+  Woah, careful. Watch the merchandise please.
+  Do you konw how much these wheels cost?
   
   Announcer
   Which includes the Curie IMU, which is comprised
@@ -82,7 +83,10 @@ The announcer bends down and picks up the rover, turning it upside-down.
   in space... but also to shock.
 
   Rover
-  That may just leave a mark, you know
+  You know how I get motion sickness? Well, I
+  could be getting that, now. I'd advise putting me
+  back down before we have ourselves a situation.
+
   
 The announcer puts the rover back on the ground.
 
