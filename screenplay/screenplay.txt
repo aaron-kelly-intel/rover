@@ -35,7 +35,7 @@ The announcer presses the directional keys on the app.
 
   Rover
   (taking off suddenly)
-  ... woah!
+  Okay. Manual drive mode actived. Please be gentle
   
   Announcer
   Our app comes with a directional pad
@@ -57,7 +57,7 @@ The rover is released from manual control, and sits there doing nothing.
   You can go now.
   
   Rover
-  Stastistically, it's a lot safer to stay right here.
+  I think I'd rather just stay right here.
 
 -----------------
 -- IMU SECTION --
