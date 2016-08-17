@@ -17,7 +17,12 @@ The rover sits in the middle of stage, switched off.
 The rover bursts into life with a power-on sound
 
   Rover
-  Good morning!
+  Good morning. I am Dave. A semi-autonomous
+  science rover built rhgt here at Intell. These
+  fine folks would like to show you a few of my
+  functions. I've agreed to this, on the condition
+  that I don't get driven into a tree like last
+  time. 
   
 ----------------------
 -- MOVEMENT SECTION --
