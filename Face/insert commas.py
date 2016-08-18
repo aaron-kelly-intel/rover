@@ -14,9 +14,8 @@ lastChar = ''
 
 for i in lines:
     for j in i:
-        if(not init):
-            if (lastChar != '\n'):
-                TextFileWrite.write(",")
+        if(not init and lastChar != '\n'):
+            TextFileWrite.write(",")
         else:
             init = False
         TextFileWrite.write(j)
