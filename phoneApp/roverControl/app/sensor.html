@@ -50,7 +50,7 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Sensors - Temp/Humid</h1>
+	<h1>Sensors</h1>
 	
 	<br />
 	
@@ -58,15 +58,6 @@ using BLE (Bluetooth Low Energy).
 	
 	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT SENSOR</button>
 	
-	<TABLE>
-		<TR id="row1">
-			<TH>  								  <TD> <img src="images/U.png" id="U"/> <TD>
-		<TR id="row2">
-			<TH> <img src="images/L.png" id="L"/> <TD> <img src="images/M.png"/>		<TD> <img src="images/R.png" id="R"/>
-		<TR id="row3">
-			<TH>								  <TD> <img src="images/D.png" id="D"/> <TD>
-	</TABLE>
-
 	<br />
 	
 	<script>
@@ -101,19 +92,21 @@ using BLE (Bluetooth Low Energy).
 
 	app.readTemp = function()
 	{
-		app.device.readCharacteristic(
-		'19b10001-e8f2-537e-4f6c-d104768a1214',
-		function(data)
-		{
-			//console.log('BLE characteristic data: ' + evothings.ble.fromUtf8(data));
-			console.log('BLE characteristic data: ' + evothings.util.typedArrayToHexString(data));
-			var reading = evothings.util.typedArrayToHexString(data);
-			app.showMessage(parseInt('0x' + reading, 16));
-		},
-		function(errorCode)
-		{
-		 	console.log('BLE readCharacteristic error: ' + errorCode);
-		});
+		while (true) {
+			app.device.readCharacteristic(
+			'19b10001-e8f2-537e-4f6c-d104768a1214',
+			function(data)
+			{
+				//console.log('BLE characteristic data: ' + evothings.ble.fromUtf8(data));
+				console.log('BLE characteristic data: ' + evothings.util.typedArrayToHexString(data));
+				var reading = evothings.util.typedArrayToHexString(data);
+				app.showMessage(parseInt('0x' + reading, 16));
+			},
+			function(errorCode)
+			{
+				console.log('BLE readCharacteristic error: ' + errorCode);
+			});
+		}
 	};
 	
 	app.showMessage = function(info)
