@@ -1,102 +1,184 @@
 ----------------------
--- MOVEMENT SECTION --
+--- INTRODUCTION -----
 ----------------------
 
 The rover sits in the middle of stage, switched off.
   
-  Announcer
-  We'd like to present to you our Rover,
-  the culmination of our learning and time
-  spent at Intel over the past 10 weeks.
-  The rover comes equipped with a number of
-  sensors built-in, thanks to the Intel Curie
-  chip.
-  To control and communicate with the rover,
-  we have also built an app. Let's switch it on.
-  
-The rover bursts into life with a power-on sound
+  AARON
+  Good morning! I'm Aaron, and I've been the
+  supervisor to this group of bright young
+  interns over the summer - I'm also an intern
+  myself.
+  We'd like to present to you Dave, our rover.
+  We thought this project would be a fun way to 
+  showcase what we learned during our time at
+  Intel over the past 10 weeks. We've put together
+  a little show - which will be controlled entirely
+  using BLE using our own custom phone app.
+  Throughout the show some of my team will talk a
+  little about certain parts of the rover they
+  worked on, and DAVE has also insisted that
+  it has a few works to say itself. Let's switch it on!
 
-  Rover
-  Good morning!
-  
-  Announcer
-  The rover is able to be controlled manually...
-  
-The announcer presses the directional keys on the app.
+  DAVE
+  [T0NEXT0.ogg]
+  (Bootup sound)
 
-  Rover
-  (taking off suddenly)
-  ... woah!
+----------------------
+---- APP SECTION -----
+----------------------
+
+  AARON
+  Eimear would now like to talk about the app
+  that she helped build to control the rover.
+
+  EIMEAR
+  For this project, I worked on the App to control
+  the Rover which involved using the BLE function
+  on the Genuino board. There are two parts of the
+  code to get an App to work: the Arduino code on
+  the board and the code for the App interface on
+  the phone. They are connected using BLE- the
+  phone being the central device while the Arduino
+  board is the peripheral. The App recognises the
+  Genuino board and vice versa as each device is
+  given a UUID which is written into the code.
+  Evothings is the platform I used to build the
+  App which uses HTMl and Javascript. For
+  controlling the stepper motors of the rover,
+  images of arrow keys were given an ID, the
+  Arduino code is constantly listening for a
+  command from the central device it’s connected
+  to. When an arrow button is held, the ID of
+  that key identifies which command is to be
+  sent and the Arduino code executes that comman
+  until the button is released. The code for
+  working the temperature sensor, speaker and cube
+  were done in similar ways and they were combined
+  into one multipage App. The App was given its
+  own URL so we could connect many phones to it
+  in order to work the different elements of the
+  Rover simultaneously. 
+
+  DAVE
+  [T00.ogg]
+  Good morning. I am Dave. A semi-autonomous
+  science rover built right here at Intel. These
+  fine folks would like to show you a few of my
+  functions. I've agreed to this, on the condition
+  that I don't get driven into a tree like last
+  time.
+
+----------------------
+-- MOVEMENT SECTION --
+----------------------
+
+  AARON
+  We wanted to explore how easy it would be
+  to control a vehicle over BLE.
+
+  DAVE
+  [T01NEXT0.ogg]
+  Okay. Manual drive mode actived. Please be gentle
   
-  Announcer
-  Our app comes with a directional pad
-  for movement, with constant feedback from
-  the rover on the terrain conditions.
+  AARON
+  We started off with pre-programmed movement - an
+  earlier version of the rover was able to to draw
+  and spell out words on a whiteboard. Fionualla
+  did a lot of work prototyping different chassies
+  for the rover, including the current one - which
+  is a lot more robost.
+
+  FIONUALLA
+  (any words here?)
   
-  Rover
+  DAVE
+  [T01NEXT1.ogg]
   You know, I really would prefer to do the 
   driving... stastistically, machines are a lot safer
-  
-  Announcer
-  (pressing button)
-  We can also have the rover operate autonomously.
-  Ok, you're free to go.
-  
-The rover is released from manual control, and sits there doing nothing.
-
-  Announcer
-  You can go now.
-  
-  Rover
-  Stastistically, it's a lot safer to stay right here.
 
 -----------------
 -- IMU SECTION --
 -----------------
-  
-The announcer walks over to the rover, it's LED
-cube flashing casually.
 
-  Announcer
-  We tried to explore as many of the on-board features
-  as we could...
-  
-The announcer bends down and picks up the rover, turning it upside-down.
+  AARON
+  Conor would now like to talk a little about his
+  experience working with the IMU...
 
-  Rover
-  Woah, careful!
-  
-  Announcer
-  Which includes the Curie IMU, which is comprised
-  of a gyroscope and accelerometer. We have built
-  a LED cube that responds not only to shock, but to
-  it's position in space.
-  
-The announcer puts the rover back on the ground.
+  CONOR
+  I worked with the on board IMU to detect the
+  orientation of the rover and we used this Led
+  cube as a visual representation.
+  (Video of cube being moved)
+  It’s sort of like a box filled with water the
+  LEDs represent the water accumulating in the
+  different corners of the cube. The rover also
+  benefits from the orientation data, knowing
+  when he’s been picked up
 
-  Announcer
-  Now be a good rover and go do some science
-  
-  Rover
-  Abolutely! As an advanced science rover I'm
-  hooked into all the latest stuff!
-  
-Other Genuino 101's around the stage start to beep and flash. The rover turns toword the first sensor
+  DAVE
+  [T02NEXT0.ogg]
+  Woah, careful. Watch the merchandise please.
+  Do you know how much these wheels cost?
+
+  CONOR
+  Or even upside down...
+
+  DAVE
+  [T02NEXT1.ogg]
+  You know how I get motion sickness? Well, I
+  could be getting that, now. I'd advise putting me
+  back down before we have ourselves a situation.
+
+  CONOR
+  I also worked on the DAVE’s faces and links them
+  to the different movements, so if you pick him up
+  you get an unimpressed face and if you turn him
+  upside down you get a very unhappy persevering face.
 
 --------------------
 -- SENSOR SECTION --
 --------------------
 
-  Rover
+  AARON
+  Ruth would like to say a little about her time
+  working with different sensors over the summer.
+
+  RUTH
+  Over the course of the summer we got to use the
+  Arduino 101 to control different things such as
+  LEDs, piezo buzzers, LCD screens, servo motors
+  and lots of sensors such as temperature sensors
+  as seen in the demo, humidity sensors, proximity
+  sensors, biomedical sensors and phototransistors.
+  These are connected to either the digital or
+  analog pins of the Arduino. The Arduino collects
+  the data from the sensors and either displays it
+  in the serial monitor, on an LCD screen or on the
+  Evothings app depending on what we tell it to do. 
+
+  ROVER
+  [T03.ogg]
   Hello! What kind of sensor are you? (pause)
   Ahh! You've been collecting weather data! 
   Let me download what you have...
   According to the sensor, the current
   temperature is 427 degrees celsius and 
-  5000 percent humidity.
-  (pause)
-  Wait... sorry, I think that's some bad
-  soldering. Displaying weather data on the
-  console.
-  
-The sensor information is displayed on the app.
+  5000 percent humidity. Wait... sorry, I think
+  that's some bad soldering. Displaying weather data
+  on the app.
+
+--------------------
+----- CLOSING ------
+--------------------
+
+  AARON
+  Ok, thank you all for your time, on behalf
+  of myself and the team it was a pleasure working
+  alongside all of you at Intel over the summer.
+  I will let DAVE have the parting words...
+
+  DAVE
+  [T04.ogg]
+  Thank you. It's been a pleasure. Till next
+  time, so long, farwell, auf weidersehen, adieu.
