@@ -1,3 +1,8 @@
+<!--
+Rover html
+-->
+
+
 <!DOCTYPE html>
 <html>
 <!--
@@ -10,7 +15,7 @@ using BLE (Bluetooth Low Energy).
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Rover control panel</title>
+	<title>VOICE</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -45,36 +50,42 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Rover control panel</h1>
-
+	<h1>VOICE</h1>
+	
+	<br />
+	
 	<p id="info">Initializing...</p>
+	
+	<button class="yellow wide" onclick="app.connectVoice()">CONNECT VOICE</button>
+
+	<button class="blue wide" onclick="app.sendCommand(0)">Introduction</button>
+	<button class="blue wide" onclick="app.sendCommand(1)">Movement</button>
+	<button class="blue wide" onclick="app.sendCommand(2)">IMU</button>
+	<button class="blue wide" onclick="app.sendCommand(3)">Sensors</button>
+	<button class="blue wide" onclick="app.sendCommand(4)">Closing</button>
 
 	<br />
-		
-	<h2>ROVER CONTROL PANEL</h2>
 	
-	<button class="red wide" onclick="location.href='motor.html'">MOTOR</button>
-	<button class="green wide" onclick="location.href='sensor.html'">SENSORS</button>
-	<button class="blue wide" onclick="location.href='voice.html'">VOICE</button>
-
 	<script>
+
 	// Application object.
 	var app = {};
-	
+	var info = 0;
 	// Connected device.
-	app.device = null;
-
-	app.connect = function()
+	app.device = null;	
+	
+	app.connectVoice = function()
 	{
 		evothings.arduinoble.close();
 		app.showMessage('Connecting...');
 
 		evothings.arduinoble.connect(
-			'GENUINO 101-C575', // Advertised name of BLE device.
+			 // Advertised name of BLE device.
+			'GENUINO 101-B986', // 1st genuino- Dave
 			function(device)
 			{
 				app.device = device;
-				app.showMessage('Connected! Touch buttons to turn LED on/off.');
+				app.showMessage('Connected!');
 			},
 			function(errorCode)
 			{
@@ -82,29 +93,22 @@ using BLE (Bluetooth Low Energy).
 			});
 	};
 
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+
 	// Called when BLE and other native functions are available.
 	app.onDeviceReady = function()
 	{
 		app.showMessage('Touch the connect button to begin.');
 	};
-	
-	// send data over a BLE connection to a device
-	app.sendCommand = function(number)
-	{
-		console.log(number);
-		app.device && app.device.writeDataArray(new Uint8Array([number]), '893fe933-4d22-4ebd-986a-08492c3144b4');
-	};
-	
-	// display a message on the app screen
-	app.showMessage = function(info)
-	{
-		document.getElementById('info').innerHTML = info
-	};
-	
+
 	document.addEventListener(
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
 		false);
+
 	</script>
 
 </body>

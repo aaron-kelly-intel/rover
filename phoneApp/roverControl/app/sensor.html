@@ -1,3 +1,8 @@
+<!--
+Rover html
+-->
+
+
 <!DOCTYPE html>
 <html>
 <!--
@@ -10,7 +15,7 @@ using BLE (Bluetooth Low Energy).
 	<meta name="viewport" content="width=device-width, user-scalable=no
 		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Rover control panel</title>
+	<title>Rover</title>
 
 	<style>
 		@import 'ui/css/evothings-app.css';
@@ -45,36 +50,48 @@ using BLE (Bluetooth Low Energy).
 		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
 	</header>
 
-	<h1>Rover control panel</h1>
-
+	<h1>Sensors - Temp/Humid</h1>
+	
+	<br />
+	
 	<p id="info">Initializing...</p>
+	
+	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT SENSOR</button>
+	
+	<TABLE>
+		<TR id="row1">
+			<TH>  								  <TD> <img src="images/U.png" id="U"/> <TD>
+		<TR id="row2">
+			<TH> <img src="images/L.png" id="L"/> <TD> <img src="images/M.png"/>		<TD> <img src="images/R.png" id="R"/>
+		<TR id="row3">
+			<TH>								  <TD> <img src="images/D.png" id="D"/> <TD>
+	</TABLE>
 
 	<br />
-		
-	<h2>ROVER CONTROL PANEL</h2>
 	
-	<button class="red wide" onclick="location.href='motor.html'">MOTOR</button>
-	<button class="green wide" onclick="location.href='sensor.html'">SENSORS</button>
-	<button class="blue wide" onclick="location.href='voice.html'">VOICE</button>
-
 	<script>
+
 	// Application object.
 	var app = {};
-	
+	var info = 0;
 	// Connected device.
-	app.device = null;
-
-	app.connect = function()
+	app.device = null;	
+	
+	app.connectSensorBoard = function()
 	{
 		evothings.arduinoble.close();
 		app.showMessage('Connecting...');
 
 		evothings.arduinoble.connect(
-			'GENUINO 101-C575', // Advertised name of BLE device.
+			 // Advertised name of BLE device.
+			'GENUINO 101-C572', // 2nd genuino
 			function(device)
 			{
 				app.device = device;
-				app.showMessage('Connected! Touch buttons to turn LED on/off.');
+				app.showMessage('Connected!');
+				
+				// read only a single temperature reading
+				app.readTemp();
 			},
 			function(errorCode)
 			{
@@ -82,29 +99,39 @@ using BLE (Bluetooth Low Energy).
 			});
 	};
 
+	app.readTemp = function()
+	{
+		app.device.readCharacteristic(
+		'19b10001-e8f2-537e-4f6c-d104768a1214',
+		function(data)
+		{
+			//console.log('BLE characteristic data: ' + evothings.ble.fromUtf8(data));
+			console.log('BLE characteristic data: ' + evothings.util.typedArrayToHexString(data));
+			var reading = evothings.util.typedArrayToHexString(data);
+			app.showMessage(parseInt('0x' + reading, 16));
+		},
+		function(errorCode)
+		{
+		 	console.log('BLE readCharacteristic error: ' + errorCode);
+		});
+	};
+	
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+
 	// Called when BLE and other native functions are available.
 	app.onDeviceReady = function()
 	{
 		app.showMessage('Touch the connect button to begin.');
 	};
-	
-	// send data over a BLE connection to a device
-	app.sendCommand = function(number)
-	{
-		console.log(number);
-		app.device && app.device.writeDataArray(new Uint8Array([number]), '893fe933-4d22-4ebd-986a-08492c3144b4');
-	};
-	
-	// display a message on the app screen
-	app.showMessage = function(info)
-	{
-		document.getElementById('info').innerHTML = info
-	};
-	
+
 	document.addEventListener(
 		'deviceready',
 		function() { evothings.scriptsLoaded(app.onDeviceReady) },
 		false);
+
 	</script>
 
 </body>
