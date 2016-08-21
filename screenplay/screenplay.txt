@@ -162,13 +162,13 @@ The rover is driver around.
   ROVER
   [T03.ogg]
   Hello! What kind of sensor are you? (pause)
-  Ahh! You've been collecting weather data! 
-  Let me download what you have...
-  According to the sensor, the current
-  temperature is 427 degrees celsius and 
-  5000 percent humidity. Wait... sorry, I think
-  that's some bad soldering. Displaying weather data
-  on the app.
+  Let's find out. Using the latest in low-powered
+  communication technology, I have the ability to
+  connect and download all sorts of data remotely.
+  Lets try it now. Hopefully I can still remember
+  my password.
+  (old modem sound)
+  Just kidding.
 
 --------------------
 ----- CLOSING ------
