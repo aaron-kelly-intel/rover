@@ -82,17 +82,24 @@ The rover sits in the middle of stage, switched off.
   Okay. Manual drive mode actived. Please be gentle
 
 The rover is driver around.
-  
-  AARON
-  We started off with pre-programmed movement - an
-  earlier version of the rover was able to to draw
-  and spell out words on a whiteboard. Fionualla
-  did a lot of work prototyping different chassies
-  for the rover, including the current one - which
-  is a lot more robost.
 
+  AARON
+  Fionnuala would like to say a few words about 
+  designing the chassis for the rover.
+  
   FIONUALLA
-  (any words here?)
+  I worked on the structure of the rover. Originally
+  the structure was made from a wooden frame, it wasn’t
+  very stable so we decided to use meccano. The rover is
+  composed of two skate board wheels and a swivel wheel
+  at the front, this is all held together using the
+  meccano. The skateboard wheels are connected to motors
+  which are contained within the body of the rover. By
+  using meccano we have a more stable and reliable
+  framework for the rover. There is a platform for the
+  genuino 101 boards and also the motor shield and led
+  cube. There’s a storage compartment to old two power
+  banks to run the rover.
   
   DAVE
   [T01NEXT1.ogg]
@@ -172,6 +179,14 @@ The rover is driver around.
 --------------------
 ----- CLOSING ------
 --------------------
+
+  AARON
+  Caoimhe has helped with designing the sounds and
+  the audio triggers for the board, and would like
+  to say something about that.
+
+  CAOIMHE
+
 
   AARON
   Ok, thank you all for your time, on behalf
