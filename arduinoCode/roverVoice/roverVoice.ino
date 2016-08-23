@@ -2,11 +2,11 @@
 
 // constants
 const int DELAYTIME = 1000;
-const int PIN_STARTUP = 0;
-const int PIN_GREETING = 1;
-const int PIN_SICK = 2;
-const int PIN_MOVE_MIND = 3;
-const int PIN_SIGNOFF = 4;
+const int PIN_INTRODUCTION = 0;
+const int PIN_MOVEMENT = 1;
+const int PIN_IMU = 2;
+const int PIN_SENSORS = 3;
+const int PIN_CLOSING = 4;
 
 byte voiceValue = 0; // store value written to voice characteristic
 
@@ -16,7 +16,7 @@ BLEPeripheral blePeripheral;
 BLEService daveVoiceBoard("c42caaf0-95ac-4460-baff-d50db4e4f4f1");
 
 // characteristics
-BLEUnsignedCharCharacteristic daveVoice("893fe933-4d22-4ebd-986a-08492c3144b4", BLEWrite);
+BLEUnsignedCharCharacteristic daveVoice("de46a385-d410-4f00-8b8d-ec116984841c", BLEWrite);
 
 void setup() {
   Serial.begin(9600);
@@ -63,33 +63,33 @@ void loop() {
         switch (voiceValue) {
           case 0:
             Serial.println("PLAY: startup");
-            digitalWrite(PIN_STARTUP, LOW);
+            digitalWrite(PIN_INTRODUCTION, LOW);
             delay(DELAYTIME);
-            digitalWrite(PIN_STARTUP, HIGH);
+            digitalWrite(PIN_INTRODUCTION, HIGH);
             break;
           case 1:
             Serial.println("PLAY: movement");
-            digitalWrite(PIN_GREETING, LOW);
+            digitalWrite(PIN_MOVEMENT, LOW);
             delay(DELAYTIME);
-            digitalWrite(PIN_GREETING, HIGH);
+            digitalWrite(PIN_MOVEMENT, HIGH);
             break;
           case 2:
             Serial.println("PLAY: IMU");
-            digitalWrite(PIN_SICK, LOW);
+            digitalWrite(PIN_IMU, LOW);
             delay(DELAYTIME);
-            digitalWrite(PIN_SICK, HIGH);
+            digitalWrite(PIN_IMU, HIGH);
             break;
           case 3:
             Serial.println("PLAY: sensors");
-            digitalWrite(PIN_MOVE_MIND, LOW);
+            digitalWrite(PIN_SENSORS, LOW);
             delay(DELAYTIME);
-            digitalWrite(PIN_MOVE_MIND, HIGH);
+            digitalWrite(PIN_SENSORS, HIGH);
             break;
           case 4:
             Serial.println("PLAY: closing");
-            digitalWrite(PIN_SIGNOFF, LOW);
+            digitalWrite(PIN_CLOSING, LOW);
             delay(DELAYTIME);
-            digitalWrite(PIN_SIGNOFF, HIGH);
+            digitalWrite(PIN_CLOSING, HIGH);
             break;
         }
       }
