@@ -83,7 +83,7 @@ void setup ()
   CurieIMU.attachInterrupt(eventCallback);
 
   /* Enable Motion Detection */
-  CurieIMU.setDetectionThreshold(CURIE_IMU_MOTION, 5); // 20mg
+  CurieIMU.setDetectionThreshold(CURIE_IMU_MOTION, 10); // 20mg
   CurieIMU.setDetectionDuration(CURIE_IMU_MOTION, 5);  // trigger times of consecutive slope data points
   CurieIMU.interrupts(CURIE_IMU_MOTION);
 }

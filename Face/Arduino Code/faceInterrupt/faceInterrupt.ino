@@ -9,6 +9,8 @@
 #define interUnimpressedPin 2
 #define interPerseveringPin 3
 
+short faceNo = 0;
+
 boolean faceCoolDude[] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
@@ -72,9 +74,9 @@ boolean faceUnimpressed[] = {
 0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,
 0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,
 0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,
-0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,
 0,0,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,0,0,
-0,0,0,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,0,0,0,
+0,0,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,0,0,
+0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,
 0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,
 0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,
 0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,
@@ -125,7 +127,7 @@ boolean facePersevering[] = {
            //    \/ (change the second number) off set of the refresh
 int count = (8 - 6);  
 // initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(6, 8, 4, 5, 7, 9);                                // ******** pins changed
+LiquidCrystal lcd(4, 6, 8, 9, 5, 7);                                // ******** pins changed
 
 byte imageByteArray[MAINROW][MAINCOL][SUBROW];
 int Byte = 0;
@@ -137,14 +139,40 @@ void setup()
 
   lcd.begin(16, 4);
   lcd.clear();
-  readPicture(faceUnimpressed);
-  attachInterrupt(digitalPinToInterrupt(interUnimpressedPin), unimpressed, CHANGE);
-  attachInterrupt(digitalPinToInterrupt(interPerseveringPin), persevering, CHANGE);
+
+  pinMode(interUnimpressedPin, INPUT);
+  pinMode(interPerseveringPin, INPUT);
+  readPicture(faceCoolDude);
 }
 
 void loop()
 {
   displayPicture(5);
+  
+  if(digitalRead(interPerseveringPin) == HIGH)
+  {
+    if(faceNo != 2)
+    {
+    readPicture(facePersevering);
+    faceNo = 2;
+    }
+  }
+  else if(digitalRead(interUnimpressedPin) == HIGH && digitalRead(interPerseveringPin) == LOW)
+  {
+    if(faceNo != 1)
+    {
+    readPicture(faceUnimpressed);
+    faceNo = 1;
+    }
+  }
+  else
+  {
+    if(faceNo != 0)
+    {
+    readPicture(faceCoolDude);
+    faceNo = 0;
+    }
+  }
 }
 
 
@@ -189,34 +217,9 @@ int  displayPicture(int dist)
       }
       lcd.createChar(byte(count), imageByteArray[g][i]);
       lcd.setCursor(i + dist, g);
-      //lcd.write('a');
       lcd.write(byte(count));
       count++;
     }
-  }
-}
-
-void unimpressed()
-{
-  if(digitalRead(interUnimpressedPin) == HIGH)
-  {
-    readPicture(faceUnimpressed);
-  }
-  else
-  {
-    readPicture(faceCoolDude);
-  }
-}
-
-void persevering()
-{
-  if(digitalRead(interPerseveringPin) == HIGH)
-  {
-    readPicture(facePersevering);
-  }
-  else
-  {
-    readPicture(faceCoolDude);
   }
 }
 
