@@ -57,14 +57,19 @@ using BLE (Bluetooth Low Energy).
 	<p id="info">Initializing...</p>
 	
 	<button class="yellow wide" onclick="app.connectSensorBoard()">CONNECT SENSORS</button>
+	<button class="green wide" onclick="app.readTemp()">GET TEMP DATA</button>
 	
 	<br />
 	
 	<script>
 
+	// constants
+	const SAMPLE_RATE = 200;
+
 	// Application object.
 	var app = {};
 	var info = 0;
+
 	// Connected device.
 	app.device = null;	
 	
@@ -80,9 +85,6 @@ using BLE (Bluetooth Low Energy).
 			{
 				app.device = device;
 				app.showMessage('Connected!');
-				
-				// read only a single temperature reading
-				app.readTemp();
 			},
 			function(errorCode)
 			{
@@ -92,7 +94,7 @@ using BLE (Bluetooth Low Energy).
 
 	app.readTemp = function()
 	{
-		while (true) {
+		setInterval(function() {
 			app.device.readCharacteristic(
 			'19b10001-e8f2-537e-4f6c-d104768a1214',
 			function(data)
@@ -106,8 +108,10 @@ using BLE (Bluetooth Low Energy).
 			{
 				console.log('BLE readCharacteristic error: ' + errorCode);
 			});
-		}
+		}, SAMPLE_RATE);
 	};
+
+
 	
 	app.showMessage = function(info)
 	{
