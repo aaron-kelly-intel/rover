@@ -176,20 +176,20 @@ The rover is driver around.
   (old modem sound)
   Just kidding.
 
---------------------
------ CLOSING ------
---------------------
+----------------------------
+----- AUDIO + CLOSING ------
+----------------------------
 
   AARON
-  Caoimhe has helped with designing the sounds and
-  the audio triggers for the board, and would like
-  to say something about that.
+  Caoimhe has helped with designing the sounds
+  and the audio triggers for the board, she'd
+  like to say a little about that
 
   CAOIMHE
-
+  [speaky bit goes here]
 
   AARON
-  Ok, thank you all for your time, on behalf
+  Thank you all for your time, on behalf
   of myself and the team it was a pleasure working
   alongside all of you at Intel over the summer.
   I will let DAVE have the parting words...
