@@ -99,18 +99,10 @@ using BLE (Bluetooth Low Energy).
 	};
 
 	// send data over a BLE connection to a device
-	app.sendCommand = function(number, state)
+	app.sendCommand = function(state)
 	{
-		if (state)
-		{
-			info = number | info;
-		}
-		else
-		{
-			info = (~number) & info;
-		}
-		console.log(info);
-		app.device && app.device.writeDataArray(new Uint8Array([info]), 'de46a385-d410-4f00-8b8d-ec116984841c');
+		console.log(state);
+		app.device && app.device.writeDataArray(new Uint8Array([state]), 'de46a385-d410-4f00-8b8d-ec116984841c');
 	};
 
 
