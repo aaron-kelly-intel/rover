@@ -7,14 +7,14 @@ The rover sits in the middle of stage, switched off.
   AARON
   Good morning! I'm Aaron, and I've been the
   supervisor to this group of bright young
-  interns over the summer - I'm also an intern
-  myself.
+  interns over the summer.
   We'd like to present to you Dave, our rover.
   We thought this project would be a fun way to 
-  showcase what we learned during our time at
+  show what we learned during our time at
   Intel over the past 10 weeks. We've put together
-  a little show - which will be controlled entirely
-  using BLE using our own custom phone app.
+  a little show - everything you see and hear will
+  be controlled entirely by Intel Curie processors
+  and our custom phone app.
   Throughout the show some of my team will talk a
   little about certain parts of the rover they
   worked on, and DAVE has also insisted that
@@ -186,7 +186,19 @@ The rover is driver around.
   like to say a little about that
 
   CAOIMHE
-  [speaky bit goes here]
+  I worked primarily on the audio section of
+  this project. My role involved converting text
+  to speech online and in turn, transferring them
+  to a sound board onboard the rover.
+  We used an Adafruit Sound FX board to store
+  these sound clips. It was my job to edit the
+  sound clips and convert them to a compatible
+  format so that the clips could be transferred. 
+  I assigned clips to pins depending on their
+  part in the script and made sure that it worked
+  smoothly with Aaron’s code.
+  We used the Genuino to trigger the pins, with
+  this being controlled remotely via BLE
 
   AARON
   Thank you all for your time, on behalf
