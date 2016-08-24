@@ -1,4 +1,4 @@
-----------------------
+﻿----------------------
 --- INTRODUCTION -----
 ----------------------
 
@@ -9,12 +9,14 @@ The rover sits in the middle of stage, switched off.
   supervisor to this group of bright young
   interns over the summer.
   We'd like to present to you Dave, our rover.
-  We thought this project would be a fun way to 
-  show what we learned during our time at
-  Intel over the past 10 weeks. We've put together
-  a little show - everything you see and hear will
-  be controlled entirely by Intel Curie processors
-  and our custom phone app.
+  Over the past 10-12 weeks we've been working
+  with Intel Curie modules and Genuino 101
+  boards, and we thought this project would be
+  a fun way to demonstrate what we've learned.
+  So we've put together a little show -
+  everything you see and hear will be controlled
+  entirely by Intel Curies over BLE, using our
+  custom phone app.
   Throughout the show some of my team will talk a
   little about certain parts of the rover they
   worked on, and DAVE has also insisted that
@@ -61,13 +63,12 @@ The rover sits in the middle of stage, switched off.
   to. When an arrow button is held, the ID of
   that key identifies which command is to be
   sent and the Arduino code executes that comman
-  until the button is released. The code for
-  working the temperature sensor, speaker and cube
-  were done in similar ways and they were combined
-  into one multipage App. The App was given its
-  own URL so we could connect many phones to it
-  in order to work the different elements of the
-  Rover simultaneously. 
+  until the button is released. The code for working
+  the temperature sensor, speaker and cube were done
+  in similar ways and they were combined into one
+  multipage App. The App was given its own URL so we
+  could connect many phones to it in order to work the
+  different elements of the Rover simultaneously. 
 
 ----------------------
 -- MOVEMENT SECTION --
@@ -81,7 +82,7 @@ The rover sits in the middle of stage, switched off.
   [T01NEXT0.ogg]
   Okay. Manual drive mode actived. Please be gentle
 
-The rover is driver around.
+The rover is driven around.
 
   AARON
   Fionnuala would like to say a few words about 
@@ -171,10 +172,6 @@ The rover is driver around.
   Let's find out. Using the latest in low-powered
   communication technology, I have the ability to
   connect and download all sorts of data remotely.
-  Lets try it now. Hopefully I can still remember
-  my password.
-  (old modem sound)
-  Just kidding.
 
 ----------------------------
 ----- AUDIO + CLOSING ------
@@ -201,10 +198,9 @@ The rover is driver around.
   this being controlled remotely via BLE
 
   AARON
-  Thank you all for your time, on behalf
-  of myself and the team it was a pleasure working
-  alongside all of you at Intel over the summer.
-  I will let DAVE have the parting words...
+  Thank you all for your time, on behalf of myself and the
+  team it was a pleasure working alongside all of you at
+  Intel over the summer. I will let DAVE have the parting words...
 
   DAVE
   [T04.ogg]
