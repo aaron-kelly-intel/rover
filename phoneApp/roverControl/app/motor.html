@@ -1,0 +1,145 @@
+<!--
+Rover html
+-->
+
+
+<!DOCTYPE html>
+<html>
+<!--
+This is an app that demonstrates how to control an Arduino101 board
+using BLE (Bluetooth Low Energy).
+-->
+<head>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no
+		initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Rover</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	window.onerror = function(msg, url, line)
+	{
+		console.log(msg + ": " + url + ":" + line);
+	};
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/arduinoble/arduinoble.js"></script>
+
+</head>
+
+<body ontouchstart=""><!-- ontouchstart="" enables low-delay CSS transitions. -->
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<img src="ui/images/arrow-left.svg" />
+		</button>
+
+		<img class="logotype" src="ui/images/logo.svg" alt="Evothings" />
+
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>Rover drive</h1>
+	
+	<br />
+	
+	<p id="info">Initializing...</p>
+	
+	<button class="yellow wide" onclick="app.connectMotor()">CONNECT-Motor</button>
+	
+	<TABLE>
+		<TR id="row1">
+			<TH>  								  <TD> <img src="images/U.png" id="U"/> <TD>
+		<TR id="row2">
+			<TH> <img src="images/L.png" id="L"/> <TD> <img src="images/M.png"/>		<TD> <img src="images/R.png" id="R"/>
+		<TR id="row3">
+			<TH>								  <TD> <img src="images/D.png" id="D"/> <TD>
+	</TABLE>
+
+	<br />
+	
+	<script>
+
+	// Application object.
+	var app = {};
+	var info = 0;
+	// Connected device.
+	app.device = null;	
+	
+	
+	app.connectMotor = function()
+	{
+		evothings.arduinoble.close();
+		app.showMessage('Connecting...');
+
+		evothings.arduinoble.connect(
+			 // Advertised name of BLE device.
+			'GENUINO 101-C575', // 1st genuino- Dave
+			function(device)
+			{
+				app.device = device;
+				app.showMessage('Connected!');
+			},
+			function(errorCode)
+			{
+				app.showMessage('Connect error: ' + errorCode + '.');
+			});
+	};
+	
+	// send data over a BLE connection to a device
+	app.sendCommand = function(number, state)
+	{
+		if (state)
+		{
+			info = number | info;
+		}
+		else
+		{
+			info = (~number) & info;
+		}
+		console.log(info);
+		app.device && app.device.writeDataArray(new Uint8Array([info]), 'de46a385-d410-4f00-8b8d-ec116984841c');
+	};
+	
+	
+
+	app.showMessage = function(info)
+	{
+		document.getElementById('info').innerHTML = info
+	};
+
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Touch the connect button to begin.');
+	};
+
+	document.addEventListener(
+		'deviceready',
+		function() { evothings.scriptsLoaded(app.onDeviceReady) },
+		false);
+	
+	document.getElementById("U").addEventListener("touchstart", function() {app.sendCommand(1, 1)}, false);
+	document.getElementById("U").addEventListener("touchend", function() {app.sendCommand(1, 0)}, false);
+	document.getElementById("D").addEventListener("touchstart", function() {app.sendCommand(2, 1)}, false);
+	document.getElementById("D").addEventListener("touchend", function() {app.sendCommand(2, 0)}, false);
+	document.getElementById("L").addEventListener("touchstart", function() {app.sendCommand(4, 1)}, false);
+	document.getElementById("L").addEventListener("touchend", function() {app.sendCommand(4, 0)}, false);
+	document.getElementById("R").addEventListener("touchstart", function() {app.sendCommand(8, 1)}, false);
+	document.getElementById("R").addEventListener("touchend", function() {app.sendCommand(8, 0)}, false);
+	</script>
+
+</body>
+
+</html>

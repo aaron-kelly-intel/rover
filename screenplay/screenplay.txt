@@ -1,0 +1,208 @@
+﻿----------------------
+--- INTRODUCTION -----
+----------------------
+
+The rover sits in the middle of stage, switched off.
+  
+  AARON
+  Good morning! I'm Aaron, and I've been the
+  supervisor to this group of bright young
+  interns over the summer.
+  We'd like to present to you Dave, our rover.
+  Over the past 10-12 weeks we've been working
+  with Intel Curie modules and Genuino 101
+  boards, and we thought this project would be
+  a fun way to demonstrate what we've learned.
+  So we've put together a little show -
+  for the next 5-10 minutes everything you see
+  and hear will be controlled entirely by Intel
+  Curies over BLE, using our custom phone app.
+  Throughout the show some of my team will talk a
+  little about certain parts of the rover they
+  worked on, and DAVE has also insisted that
+  it has a few works to say itself. Let's switch it on!
+
+  DAVE
+  [T0NEXT0.ogg]
+  (Bootup sound)
+
+----------------------
+---- APP SECTION -----
+----------------------
+
+  DAVE
+  [T00.ogg]
+  Good morning. I am Dave. A semi-autonomous
+  science rover built right here at Intel. These
+  fine folks would like to show you a few of my
+  functions. I've agreed to this, on the condition
+  that I don't get driven into a tree like last
+  time.
+
+  AARON
+  Eimear would now like to talk about the app
+  that she helped build to control the rover.
+
+  EIMEAR
+  For this project, I worked on the App to control
+  the Rover which involved using the BLE function
+  on the Genuino board. There are two parts of the
+  code to get an App to work: the Arduino code on
+  the board and the code for the App interface on
+  the phone. They are connected using BLE- the
+  phone being the central device while the Arduino
+  board is the peripheral. The App recognises the
+  Genuino board and vice versa as each device is
+  given a UUID which is written into the code.
+  Evothings is the platform I used to build the
+  App which uses HTMl and Javascript. For
+  controlling the stepper motors of the rover,
+  images of arrow keys were given an ID, the
+  Arduino code is constantly listening for a
+  command from the central device it’s connected
+  to. When an arrow button is held, the ID of
+  that key identifies which command is to be
+  sent and the Arduino code executes that comman
+  until the button is released. The code for working
+  the temperature sensor, speaker and cube were done
+  in similar ways and they were combined into one
+  multipage App. The App was given its own URL so we
+  could connect many phones to it in order to work the
+  different elements of the Rover simultaneously. 
+
+----------------------
+-- MOVEMENT SECTION --
+----------------------
+
+  AARON
+  We wanted to explore how easy it would be
+  to control a vehicle over BLE.
+
+  DAVE
+  [T01NEXT0.ogg]
+  Okay. Manual drive mode actived. Please be gentle
+
+The rover is driven around.
+
+  AARON
+  Fionnuala would like to say a few words about 
+  designing the chassis for the rover.
+  
+  FIONUALLA
+  I worked on the structure of the rover. Originally
+  the structure was made from a wooden frame, it wasn’t
+  very stable so we decided to use meccano. The rover is
+  composed of two skate board wheels and a swivel wheel
+  at the front, this is all held together using the
+  meccano. The skateboard wheels are connected to motors
+  which are contained within the body of the rover. By
+  using meccano we have a more stable and reliable
+  framework for the rover. There is a platform for the
+  genuino 101 boards and also the motor shield and led
+  cube. There’s a storage compartment to old two power
+  banks to run the rover.
+  
+  DAVE
+  [T01NEXT1.ogg]
+  You know, I really would prefer to do the 
+  driving... stastistically, machines are a lot safer
+
+-----------------
+-- IMU SECTION --
+-----------------
+
+  AARON
+  Conor would now like to talk a little about his
+  experience working with the IMU...
+
+  CONOR
+  I worked with the on board IMU to detect the
+  orientation of the rover and we used this Led
+  cube as a visual representation.
+  (Video of cube being moved)
+  It’s sort of like a box filled with water the
+  LEDs represent the water accumulating in the
+  different corners of the cube. The rover also
+  benefits from the orientation data, knowing
+  when he’s been picked up
+
+  DAVE
+  [T02NEXT0.ogg]
+  Woah, careful. Watch the merchandise please.
+
+  CONOR
+  Or even upside down...
+
+  DAVE
+  [T02NEXT1.ogg]
+  You know how I get motion sickness? Well, I
+  could be getting that, now. I'd advise putting me
+  back down before we have ourselves a situation.
+
+  CONOR
+  I also worked on the DAVE’s faces and links them
+  to the different movements, so if you pick him up
+  you get an unimpressed face and if you turn him
+  upside down you get a very unhappy persevering face.
+
+--------------------
+-- SENSOR SECTION --
+--------------------
+
+  AARON
+  Ruth would like to say a little about her time
+  working with different sensors over the summer.
+
+  RUTH
+  Over the course of the summer we got to use the
+  Arduino 101 to control different things such as
+  LEDs, piezo buzzers, LCD screens, servo motors
+  and lots of sensors such as temperature sensors
+  as seen in the demo, humidity sensors, proximity
+  sensors, biomedical sensors and phototransistors.
+  These are connected to either the digital or
+  analog pins of the Arduino. The Arduino collects
+  the data from the sensors and either displays it
+  in the serial monitor, on an LCD screen or on the
+  Evothings app depending on what we tell it to do. 
+
+  ROVER
+  [T03.ogg]
+  Hello! What kind of sensor are you? (pause)
+  Let's find out. Using the latest in low-powered
+  communication technology, I have the ability to
+  connect and download all sorts of data remotely.
+
+----------------------------
+----- AUDIO + CLOSING ------
+----------------------------
+
+  AARON
+  Caoimhe has helped with designing the sounds
+  and the audio triggers for the board, she'd
+  like to say a little about that
+
+  CAOIMHE
+  I worked primarily on the audio section of
+  this project. My role involved converting text
+  to speech online and in turn, transferring them
+  to a sound board onboard the rover.
+  We used an Adafruit Sound FX board to store
+  these sound clips. It was my job to edit the
+  sound clips and convert them to a compatible
+  format so that the clips could be transferred. 
+  I assigned clips to pins depending on their
+  part in the script and made sure that it worked
+  smoothly with Aaron’s code.
+  We used the Genuino to trigger the pins, with
+  this being controlled remotely via BLE
+
+  AARON
+  Thank you all for your time, on behalf of myself and the
+  team it was a pleasure working alongside all of you at
+  Intel over the summer. I will let DAVE have the parting words...
+
+  DAVE
+  [T04.ogg]
+  Thank you. It's been a pleasure. Till next
+  time, so long, farwell, auf weidersehen, adieu.
